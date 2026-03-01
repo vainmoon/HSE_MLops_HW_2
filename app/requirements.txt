@@ -3,3 +3,5 @@ uvicorn
 asyncpg
 sqlalchemy
 boto3
+alembic
+psycopg2-binary

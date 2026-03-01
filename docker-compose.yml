@@ -40,6 +40,7 @@ services:
       - "8000:8000"
     environment:
       DATABASE_URL: postgresql+psycopg2://postgres:admin1@postgres:5432/model_registry
+      JWT_SECRET: supersecretkey
     depends_on:
       postgres:
         condition: service_healthy

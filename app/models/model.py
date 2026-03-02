@@ -37,7 +37,7 @@ class ModelVersion(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     version_number: Mapped[int] = mapped_column(Integer)
     status: Mapped[VersionStatus] = mapped_column(SAEnum(VersionStatus), default=VersionStatus.staging)
-    artifact_path: Mapped[str] = mapped_column(String(500))
+    artifact_path: Mapped[Optional[str]] = mapped_column(String(500), nullable=True)
     training_params: Mapped[Optional[dict]] = mapped_column(JSON, nullable=True)
     metrics: Mapped[Optional[dict]] = mapped_column(JSON, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)

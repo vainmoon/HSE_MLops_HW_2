@@ -59,7 +59,7 @@ def list_models(
 ):
     q = db.query(Model)
     if name:
-        q = q.filter(Model.name.ilike(f"%{name}%"))
+        q = q.filter(Model.name == name)
     if team_id:
         q = q.filter(Model.team_id == team_id)
     if task_type:

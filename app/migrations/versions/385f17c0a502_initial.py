@@ -53,7 +53,7 @@ def upgrade() -> None:
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('version_number', sa.Integer(), nullable=False),
     sa.Column('status', sa.Enum('staging', 'production', 'archived', name='versionstatus'), nullable=False),
-    sa.Column('artifact_path', sa.String(length=500), nullable=False),
+    sa.Column('artifact_path', sa.String(length=500), nullable=True),
     sa.Column('training_params', sa.JSON(), nullable=True),
     sa.Column('metrics', sa.JSON(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=False),

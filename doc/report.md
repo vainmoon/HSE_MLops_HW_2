@@ -93,21 +93,7 @@ models/mlds_180/model_v1_v0_without_rank_dataset_1/
 
 ## Схема
 
-```mermaid
-graph TB
-    Client["Клиент"]
-
-    subgraph Registry["Model Registry"]
-        API["FastAPI + JWT"]
-        PG[("PostgreSQL")]
-        Minio[("MinIO")]
-    end
-
-    Client -->|REST API| API
-    API -->|метаданные| PG
-    API -->|pre-signed URL| Client
-    Client -->|загрузка/скачивание файла по pre-signed URL| Minio
-```
+![alt text](images/services.png)
 
 Клиент обращается к FastAPI. Метаданные хранятся в PostgreSQL, бинарные артефакты — в MinIO. Для загрузки/скачивания файлов API возвращает pre-signed URL, и клиент работает с MinIO напрямую.
 
@@ -157,59 +143,7 @@ graph TB
 
 # Схема БД
 
-```mermaid
-erDiagram
-    teams {
-        int id PK
-        varchar name
-    }
-    users {
-        int id PK
-        varchar username
-        varchar password_hash
-        int team_id FK
-        varchar role
-    }
-    models {
-        int id PK
-        varchar name
-        varchar task_type
-        text description
-        int team_id FK
-        int created_by FK
-        timestamp created_at
-    }
-    model_versions {
-        int id PK
-        int model_id FK
-        int version_number
-        varchar status
-        varchar artifact_path
-        jsonb training_params
-        jsonb metrics
-        int created_by FK
-        timestamp created_at
-    }
-    audit_log {
-        int id PK
-        int model_id FK
-        int version_id FK
-        varchar action
-        varchar old_status
-        varchar new_status
-        int user_id FK
-        timestamp created_at
-    }
-
-    teams ||--o{ users : ""
-    teams ||--o{ models : ""
-    models ||--o{ model_versions : ""
-    models ||--o{ audit_log : ""
-    model_versions ||--o{ audit_log : ""
-    users ||--o{ audit_log : ""
-    users ||--o{ models : ""
-    users ||--o{ model_versions : ""
-```
+![alt text](images/bd.png)
 
 ## Таблицы
 

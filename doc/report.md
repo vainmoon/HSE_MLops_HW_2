@@ -58,7 +58,6 @@ models/mlds_180/model_v1_v0_without_rank_dataset_1/
 **Версионирование**
 - Автоматическая нумерация версий при регистрации новой версии модели
 - Возможность просмотра истории версий
-- Возможность сравнения метрик между версиями
 
 **Жизненный цикл**
 - Хранение статуса жизненного цикла модели
@@ -68,7 +67,6 @@ models/mlds_180/model_v1_v0_without_rank_dataset_1/
 **Каталог и поиск**
 
 - Поиск по параметрам модели (название, команда, задача и т.д.)
-- Поиск по метрикам с фильтрацией (к примеру модели с `accuracy > 0.9`)
 
 **Аудит**
 - Логирование любых изменений моделей
@@ -143,7 +141,7 @@ graph TB
 | GET | `/models` | Список моделей с фильтрацией | любой |
 | GET | `/models/{model_id}` | Получить модель | любой |
 
-Параметры фильтрации для `GET /models`: `name`, `team_id`, `task_type`, а также по метрикам — `metric_name=accuracy&metric_op=gt&metric_value=0.9`.
+Параметры фильтрации для `GET /models`: `name`, `team_id`, `task_type`
 
 ## Версии
 
@@ -151,10 +149,10 @@ graph TB
 |-------|------|----------|-------|
 | POST | `/models/{model_id}/versions` | Создать новую версию | своя команда |
 | GET | `/models/{model_id}/versions` | История версий | любой |
-| GET | `/versions/{version_id}` | Детали версии | любой |
-| POST | `/versions/{version_id}/upload-url` | Получить pre-signed URL для загрузки артефакта | своя команда |
-| GET | `/versions/{version_id}/download-url` | Получить pre-signed URL для скачивания | любой |
-| PATCH | `/versions/{version_id}/status` | Сменить статус жизненного цикла | admin / team_lead |
+| GET | `/models/{model_id}/versions/{version_id}` | Детали версии | любой |
+| POST | `/models/{model_id}/versions/{version_id}/upload-url` | Получить pre-signed URL для загрузки артефакта | своя команда |
+| GET | `/models/{model_id}/versions/{version_id}/download-url` | Получить pre-signed URL для скачивания | любой |
+| PATCH | `/models/{model_id}/versions/{version_id}/status` | Сменить статус жизненного цикла | admin / team_lead |
 
 Статусы жизненного цикла: `staging` → `production` → `archived`. Только одна версия модели может иметь статус `production` одновременно — при переводе в `production` предыдущая версия автоматически переходит в `archived`.
 
